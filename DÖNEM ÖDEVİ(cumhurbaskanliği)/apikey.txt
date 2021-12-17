@@ -1,0 +1,13 @@
+API KEY = 3DcLpDBQ3CXN82akns2TgadfY
+
+
+API KEY Secret = Q0rLDJ1TmXdxc9Esc8onqyFHs56Gkp6qHWjtGB69jW5ZWWPW8K
+
+
+
+
+
+
+Access Token = 1296063762-ds5HVkWMElP1jybNjLmiws67161rXLehGUi4RFh
+
+Access Token Secret = 0uEngyJm4Q6807twvfaAt4pBpKiMKth5M6JWZpYdqDn4x

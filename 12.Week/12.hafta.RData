@@ -1,0 +1,59 @@
+#kumeleme analizi knn
+install.packages("cluster")
+library(cluster)
+data(iris)
+View(iris)
+summary(iris)
+str(iris)
+attributes(iris)
+
+#kumeleme uygulama
+
+#rastalantisal olarak 150 gozlem degerinden 30'unu cekelim. 
+#Set seed komutunun calismasi icin caret paketi yukeleyelim. set. seed komutu ile veri setinden rastlantisal veri ayiracagiz
+
+install.packages("caret")
+library(caret)
+
+set.seed(1234)
+#sample fonksiyonu ile tesadufi sayiyi elde edecegiz
+
+ind <- sample(1:150,30)
+veri <- iris[ind,]
+
+
+#elde edilen veri kumesi agnes() fonksiyonu ile birlikte kullanarak kumeleme modeli elde edilir. KNN
+#En yak�n komsu algoritmasi
+model <- agnes(veri,metric="manhattan", method="single") # manhattan uzakliga gore
+modelo <- agnes (veri, metric = "euclidien", method="single") #oklit uzakliga gore
+
+#gorsellestirelim
+pltree(model, main="en yak�n komsu algoritmas� ile kumeleme")
+pltree(modelo, main="en yak�n komsu algoritmas� ile kumeleme")
+
+#bu gorselde sayilar ile gosterim var, sinif etiketi seklinde gormek istersek
+pltree(model, main="en yak�n komsu algoritmas� ile kumeleme", labels=veri$Species)
+
+#sonucu banner grafik seklinde gorelim
+bannerplot(agnes(veri),main="Bannerplot Grafigi", labels = veri$Species)
+
+#k ortalamalara gore kumeleme analizi
+
+#B�R D�GER YONTEM K ORTALAMALAR ALGOR�TMAS�
+data(iris)
+set.seed(1234)
+ind <- sample(1:150,30)
+veri <- iris[ind,]
+veri <- veri[,-5]
+
+#veri hazirlandi simdi kmeans uygualayacagiz 3 farkli kume 
+model <- kmeans(veri[,-5],3)
+
+#modelin gorselini cizmek icin fpc paketi yukleyelim
+install.packages("fpc")
+library(fpc)
+plotcluster(veri,model$cluster)
+
+#bir baska grafik
+library(cluster)
+clusplot(veri, model$cluster, color=T, shade=T, labels=2)

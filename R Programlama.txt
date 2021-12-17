@@ -1,0 +1,60 @@
+#4. hafta R programlama kurulumu yapildi
+# min maks normalizasyon ve zscore normalizasyon yapildi
+#R programalamaya giris
+
+#paket kurma komutu
+install.packages("rpart")
+
+#veri tipleri
+#is.numeric nümerik 
+#is.character karakter
+#is.vector
+#is. matrix 
+#is.data.frame 
+#factor kategorik
+#data. frame eşit uzunluktaki vektörlerden oluşan listeler
+#view() fonksiyonu nenslerin ayrı bir pencerede görüntülenmesini saglar
+
+
+#min maks  normalizasyonu
+
+#vektor olusturma
+x <- c(25,16,33,45,52,48,61,37,56,45)
+
+#vektoru cagirma
+x
+
+#vektorden min degeri cagiralim
+
+min(x)
+
+# vektorden mak degeri cagiralim
+
+max(x)
+
+#min maks normalizasyon formulu 
+
+minmaksnormal <- (x-min(x))/(max(x)-min(x))
+print(minmaksnormal)
+
+# orjinal veri seti ile normalize veri setini kiyaslama
+
+data.frame(veri=x , normalize= minmaksnormal)
+
+
+# Zscore normalizasyonu
+#ortalama ve standart sapma 
+
+#ortalama
+mean(x)
+
+#standart sapma
+sd(x)
+
+#zscore normalizasyon
+zscore <- (x-mean(x))/sd(x)
+print(zscore)
+
+#orjinal veri seti ile zcore normalize veri setini kıyasayalım
+data.frame(veri=x, normalizezscore=zscore)
+

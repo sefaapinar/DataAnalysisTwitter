@@ -1,0 +1,150 @@
+# İLK ÖNCELİKE VERİ ANALİZİ YAPMAMIZ İÇİN İNDİRMEMİZ GEREKEN PAKETLERİ İNDİRİP VE TANIYALIM.
+
+install.packages("ROAuth")        #Twitter'daki uygulamaya giriş yapmak ve iletişim kurmak için kullanırız.
+install.packages("twitteR")       #Twiiter'dan veri almak için kullanırız.
+install.packages("tm")            #Metin analizi için kullanırız.
+install.packages("wordcloud")     #Kelime bulutu hazırlamak için kullanırız.
+install.packages("ggplot2")       #Oluşturacağımız grafikleri görüntülemek için kullanırız.
+install.packages("RColorBrewed")  #Oluşturulacak renk paletleri için kullanırız.
+install.packages("stringr")       # 'string' verilere yani metinsel verilere manipülasyon için kullanırız.
+install.packages("plyr")          #Ortak sorun kümeleri için (split-apply-combine işlemleri için kullanırız.)
+
+# YÜKLEDİĞİMİZ KÜTÜPHANELERİ AKTİFLEŞTİRELİM.
+
+library(ROAuth)
+library(twitteR)
+library(tm)
+library(wordcloud)
+library(ggplot2)
+library(RColorBrewer)
+library(stringr)
+library(plyr)
+
+# "ROAuth" paketindeki setup_twitter_oauth() fonksiyonu kullanılarak twitter
+# API hesabımızla iletişimi sağlıyoruz.
+# ilk öncelikle API'Lerimizi giriyoruz.
+
+api_key <- "s02H362wXZcJgMRrvLetkmYGC"
+api_secret_key <- "Msp4DqO28jSQ0juaXmGuw30hTJBQMDIJaToKuOLHGZBPTAgjST"
+access_token <- "1296063762-s4acb8DYnHj00aQlniBtPc6gczmncP4HIKjoL64"
+access_token_secret <- "efZQBtVrC7YOlGqrdDgTcUvl9CPwaoKJCrHubqqEhhw9C"
+
+setup_twitter_oauth(api_key,api_secret_key,access_token,access_token_secret)
+
+
+# Twitter da, "twitteR" paketindeki searchTwitter() fonksiyonu ile
+# Türkiye Cumhurbaşkanlığı hesabından 1000 tane veri toplandı.
+
+tcbestepe <- searchTwitteR('tcbestepe', n = 1000, lang = "tr") # verileri çekeriz.
+save(tcbestepe, file="tc.RData") # verileri kaydederiz.
+
+length(tcbestepe)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

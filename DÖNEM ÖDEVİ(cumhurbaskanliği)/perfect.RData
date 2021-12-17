@@ -1,0 +1,170 @@
+install.packages("ROAuth")
+install.packages("twitteR")
+install.packages("tm")
+install.packages("wordcloud")
+install.packages("ggplot2")
+install.packages("RColorBrewed")
+install.packages("stringr")
+install.packages("plyr")
+
+library(twitteR)
+library(ROAuth)
+library(tm)
+library(wordcloud)
+library(ggplot2)
+library(RColorBrewer)
+library(stringr)
+library(plyr)
+
+api_key <-"8hCWopLPe4ZznGPcLpNHt38v2"
+api_secret_key <-"OTlJ7EAOYdWPF060H06TJ5atZ2CQuXIdqcB3ELAOuH71kcAhEj"
+access_token <-"1296063762-2AWHbcT8IJPSJg9XT3IBcc24Ul0470yN8CZNwa8"
+access_token_secret <-"JhYnz08WvsolvDkWRu64iIe0p9gbCenTAu1I69fKoaSsC"
+
+setup_twitter_oauth(api_key,api_secret_key,access_token,access_token_secret)
+
+putin <- searchTwitter('putin', n = 1000, lang = "en")
+save(putin, file = "putin.RData")
+length(putin)
+
+head(putin)
+
+putin.text <- sapply(putin,  function(x) x$getText())
+
+myCorpus <- Corpus(VectorSource(putin.text))
+
+removeURL <- function(x) gsub("http[[:alnum:]]*", "",x)
+
+removeNumPunct <- function(x) gsub("[^[:alpha:][:space:]]*", "",x)
+
+new_stops <- c(stopwords("en"), "putin","putins","vladimir","amp","rt")
+
+new_stops
+
+clean_corp <- tm_map(myCorpus, PlainTextDocument)
+clean_corp <- tm_map(clean_corp, content_transformer(removeURL))
+clean_corp <- tm_map(clean_corp, stripWhitespace)
+clean_corp <- tm_map(clean_corp, content_transformer(tolower))
+clean_corp <- tm_map(clean_corp, removeWords, new_stops)
+clean_corp <- tm_map(clean_corp, content_transformer(removeNumPunct))
+clean_corp <- tm_map(clean_corp, removePunctuation)
+
+putin.text[40]
+
+putin_tdm <- TermDocumentMatrix(clean_corp)
+putin_tdm
+
+putin_m <- as.matrix(putin_tdm)
+dim(putin_m)
+
+term_frequency <- rowSums(putin_m)
+term_frequency <- sort(term_frequency, decreasing = TRUE)
+
+term_frequency[1:10]
+
+barplot(term_frequency[1:20], col="tan", las=2)
+
+wordcloud(clean_corp,min.freq = 2, scale=c(2,0.5), colors = brewer.pal(8,"Dark2"),
+          random.color = TRUE, random.order = FALSE, max.words = 100)
+
+pos <-scan('C:/datanalysis/kaynaklar/iyi.txt', what='character')
+pos <-scan('C:/datanalysis/kaynaklar/kötü.txt', what='character')
+
+list(pos[1:100])
+
+function(tweets,iyi_words, kotu_words, .progress='none'){
+  scores = lapply(tweets, function(tweet, iyi_words,kotu_words){
+    tweet = gsub("[[:punct:]]","",tweet)
+    tweet = gsub("[[:cntrl:]]","",tweet)
+    tweet = gsub('\\d+' '',tweet)
+    
+    tryToLower = function(x){
+      y = NA
+      try_error = tryCatch(tolower(X),error=function(e)e)
+      if(!inherits(try_error, "error"))
+        y = tolower(x)
+      
+      return(y)
+    }
+  })
+}
+
+
+29'da kaldık'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
