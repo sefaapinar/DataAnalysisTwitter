@@ -1,0 +1,63 @@
+
+#12.HAFTA ÖDEV
+
+install.packages("cluster")
+install.packages("factoextra")
+install.packages("ggplot2")
+install.packages("ggthemes")
+install.packages("car")
+install.packages("FactoMineR")
+install.packages("ade4")
+
+
+
+
+
+
+
+
+
+
+library(cluster)
+library(factoextra)
+library(ggplot2)
+library(ggthemes)
+library(car)
+library(FactoMineR)  # Çok kapsamlı paketler. İlerde bunları daha 
+library(ade4)              # karmaşık analizlerde kullanacağız.
+
+set.seed(123)
+datas<-rbind(matrix(rnorm(50, sd=0.3), ncol=2), matrix(rnorm(50, mean=1, sd=0.3), ncol=2))
+
+colnames(datas)<-c("x", "y")
+dim(datas) 
+head(datas,3)
+
+set.seed(123) 
+km.res<-kmeans(datas, 2, nstart=25)
+
+km.res$cluster
+
+km.res$size
+
+
+km.res$centers
+
+plot(datas, col=km.res$cluster, pch=19, frame=FALSE, 
+     main="K-means kümleme k = 2 ile") 
+points(km.res$centers, col=1:2, pch=8, cex=3)
+
+
+set.seed(123) km.res<-kmeans(datas, 4, nstart=25) 
+plot(datas, col=km.res$cluster, pch=19, frame=FALSE,
+     main="K-means kümeleme k = 4 ile ")
+points(km.res$centers, col=1:4, pch=8, cex=3)
+
+
+
+
+
+
+
+
+
