@@ -30,10 +30,10 @@ library(stringi)
 # API hesabımızla iletişimi sağlıyoruz.
 # ilk öncelikle API'Lerimizi giriyoruz.
 
-api_key <- "Jfsp7lsPnIRfMFGYIauh1WB2Q"
-api_secret_key <- "6A8R0wuBTCfKg9LIrZchOhvv8CwDrDGzVCiTwsuQL5I7GivHph"
-access_token <- "1296063762-EdA7FonJTNj4xAEvg169lHIONylZwrasOskfokD"
-access_token_secret <- "5tnRkcOlbkruJp6Vhoy7V3a7hYXCYJ46gCsRM9CG4RPdm"
+api_key <- "ceLimfU4B1iO2Akx6inLMJAA2"
+api_secret_key <- "nICLZFxwQ3ygEK580zDZ9b8fUO5xSi4NCtCHDXl1GE9vRTXquK"
+access_token <- "1296063762-9UM8ZjPCoq0APOSmQ7Svutla5IPP8KHQ8Nqyndy"
+access_token_secret <- "fl0uRuRROKpFnZq3DWbx43MSVgpqQj4inf0DkQETLcg6w"
 
 setup_twitter_oauth(api_key,api_secret_key,access_token,access_token_secret)
 
@@ -41,7 +41,7 @@ setup_twitter_oauth(api_key,api_secret_key,access_token,access_token_secret)
 # Twitter da, "twitteR" paketindeki searchTwitter() fonksiyonu ile
 # "BillGates" hesabının 21 günlük verileri çekilmiştir ve incelemeleri yapılmıştır.
 
-BillData <- searchTwitteR('#BillGates', n = 20000, lang="en")  # '#BillGates' adı altındaki verileri çekiyoruz.
+BillData <- searchTwitteR('#BillGates', n = 30000, lang="en")  # '#BillGates' adı altındaki verileri çekiyoruz.
 
 
 #Length methodu kaç tane çektiğimizi gösterir.
