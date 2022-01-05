@@ -1,0 +1,190 @@
+
+
+install.packages("ROAuth")        
+install.packages("twitteR")       
+install.packages("tm")            
+install.packages("wordcloud")     
+install.packages("ggplot2")       
+install.packages("RColorBrewed")  
+install.packages("stringr")       
+install.packages("dplyr")        
+install.packages("tidytext")    
+install.packages("readr")         
+
+
+
+library(ROAuth)
+library(twitteR)
+library(tm)
+library(wordcloud)
+library(ggplot2)
+library(Rcolor)
+library(stringr)
+library(dplyr)
+library(tidytext)
+library(readr)
+library(stringi)
+
+
+
+api_key <- "cMsPs58g4ckdpG57eutnjsIn6"
+api_secret_key <- "9RtyAgNAR5uwx9W34m3YEwLCbI52KwJkLKJGrk7xOnLEr0exYd"
+access_token <- "1296063762-CPQR8Q75TNdcmU9uFyILRv5DiwpbhkqeSqHWW3j"
+access_token_secret <- "WgQpM1dZ9zZuzOLGZrx8pC3BBJa3Qsiwvg6LqbohK8mej"
+
+setup_twitter_oauth(api_key,api_secret_key,access_token,access_token_secret)
+
+
+
+
+enewsData <- searchTwitteR(' @euronews', n = 10000, lang="en")  
+
+
+
+save(enewsData, file="enewsData.RData") #Data Kaydedilir.
+length(enewsData)
+
+head(enewsData)
+
+#Corpus Oluşturma İşlemi
+
+enewsData.text <- sapply(enewsData, function(x) x$getText())
+mycorpus <- Corpus(VectorSource(enewsData.text))
+
+
+#Temizleme İşlemleri
+
+
+removeURL <- function(x) gsub("http[[:alnum:]]*","",x)
+removeNumPuncts <- function(x) gsub("[^[:alpha:][:space:]]*","",x)
+
+
+
+rmv_word <- c(stopwords("en"))
+
+#Listeledik.
+rmv_word
+
+
+clean_corp <- tm_map(mycorpus, PlainTextDocument)
+clean_corp <- tm_map(clean_corp, content_transformer(removeURL))
+clean_corp <- tm_map(clean_corp, stripWhitespace)
+clean_corp <- tm_map(clean_corp, content_transformer(tolower))
+clean_corp <- tm_map(clean_corp, removeWords, rmv_word)
+clean_corp <- tm_map(clean_corp, content_transformer(removeNumPuncts))
+clean_corp <- tm_map(clean_corp, removePunctuation)
+
+enewsData.text[10] 
+
+
+
+clean_corp[[10]][1] 
+
+
+#Terim Dökümantasyon Değerleri
+enewsData_tdm <- TermDocumentMatrix(clean_corp)
+enewsData_tdm
+
+
+#matrix oluşturma
+enewsData_m <- as.matrix(enewsData_tdm)
+dim(enewsData_m)
+
+
+term_freq <- rowSums(enewsData_m)
+term_freq <- sort(term_freq, decreasing = TRUE)
+
+term_freq[1:10] #10 tane veriyi getirdik.
+
+
+barplot(term_freq[1:10], col="tan", las=2)
+
+
+#Frekansı 400 ve daha üzeri olan kelimelerin grafiği
+term_freq <- subset(term_freq, term_freq >=400)
+term_freqs_df <- data.frame(term= names(term_freq), freq= term_freq)
+ggplot(term_freqs_df, aes(x=term, y=freq)) + 
+  geom_line(aes(group=1), colour="salmon3")+
+  geom_point(size=3, colour="pink2") + xlab("kelime") + ylab("Frekans") + coord_flip()
+
+
+#Kelime Bulutu Oluşturma
+
+wordcloud(clean_corp, min.freq = 2, scale =c(2,0.5),colors = brewer.pal(8,"Dark2"),
+          random.color = TRUE, random.order = FALSE, max.words = 200)
+
+
+#Frekansa göre kelime bulutu oluşturma
+word_freqs <- data.frame(term_freq, term = names(term_freq), num= term_freq)
+wordcloud(word_freqs$term, word_freqs$num, max.words = 200, colors=brewer.pal(11,"RdYlGn"),random.color = TRUE)
+
+
+
+
+
+findAssocs(enewsData_tdm, terms="wrong",corlimit = 0.5)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
