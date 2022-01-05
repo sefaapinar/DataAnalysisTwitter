@@ -1,0 +1,34 @@
+install.packages("cluster")
+library(cluster)
+data(iris)
+view(iris)
+summary(iris)
+str(iris)
+attributes(iris)
+
+#kumeleme uygulama
+#set seed komutunun calismasi icin caret paketi yukleyelim. set need komutu ile veri setinden raslantısal veri ayiracağız
+
+install.packages("caret")
+library(caret)
+
+set.seed(1234)
+#sample fonksiyonu ile tesadufi sayiyi elde edecegiz
+ind <- sample(1:150,30)
+veri <- iris[ind,]
+
+#elde edilen veri kumesi agnes() fonksiyonu ile birlikte kullanarak kumeleme modeli elde edilir. KNN
+#En yakın komsu algoritmasi
+model <- agnes(veri,metric="manhattan", method="single") # manhattan uzakliga gore
+modelo <- agnes (veri, metric = "euclidien", method="single") #oklit uzakliga gore
+
+#gorsellestirelim
+pltree(model, main="en yakın komsu algoritması ile kumeleme")
+pltree(modelo, main="en yakın komsu algoritması ile kumeleme")
+
+#bu gorselde sayilar ile gosterim var, sinif etiketi seklinde gormek istersek
+pltree(model, main="en yakın komsu algoritması ile kumeleme", labels=veri$Species)
+
+#sonucu banner grafik seklinde gorelim
+bannerplot(agnes(veri),main="Bannerplot Grafigi", labels = veri$Species)
+
